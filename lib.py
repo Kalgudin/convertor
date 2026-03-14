@@ -1,5 +1,7 @@
 import requests
 
+
+
 data = requests.get('https://www.cbr-xml-daily.ru/daily_json.js').json()
 rub = {'RUB': {'Value': 1, 'name': 'Российский рубль'}}
 data['Valute'].update(rub)

@@ -6,11 +6,12 @@ from lib import *
 def click():
     v1 = Currency(data, val_1.get())
     v2 = Currency(data, val_2.get())
+    s = int(fill_summ.get())
+    print(s)
+    v1.convector(v2, s)
 
-    v1.convector(v2, fill_summ.get())
 
-
-    res['text'] = val_1.res
+    res['text'] = v1.res
     res['background'] = 'green'
     btn['text'] = 'Clicked'
 
