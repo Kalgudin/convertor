@@ -15,4 +15,4 @@ class Currency:
         self.res = round((sum * self.data['Value'] / curr_2.data['Value']), 2)
         return f'За {sum} {self.name} вы получите {self.res} {curr_2.name}'
 
-
+# Проверка связи 
