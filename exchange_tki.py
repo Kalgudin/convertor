@@ -15,16 +15,22 @@ def get_val_list():
 
 def click():
     valut_fild['text'] = valut.get()
-    result_fild['text'] = calculation(valut_fild['text'], int(fill_summ.get()))
+    result_fild['text'] = calculation(valut_fild['text'], fill_summ.get())
 
 def calculation(val, sum):
-    if bay_sell.get() == 'sell':
-        res = data['Valute'][val]['Value'] * int(sum)
-        valut_fild['text'] = 'RUB'
-    elif bay_sell.get() == 'bay':
-        res = int(sum) / data['Valute'][val]['Value']
-    else:
+    try:
+        s = int(sum)
+        result_fild['background'] = '#c2edce'
+    except ValueError:
         res = "!!! WTF !!!"
+        result_fild['background'] = 'red'
+        return res
+
+    if bay_sell.get() == 'sell':
+        res = data['Valute'][val]['Value'] * s
+        valut_fild['text'] = 'RUB'
+    else:
+        res = s / data['Valute'][val]['Value']
 
     return res
 
@@ -37,11 +43,11 @@ root.geometry("800x600")  # устанавливаем размеры окна
 
 bay_sell = StringVar(value='bay')
 
-label = Label(text="Добро пожаловать в обменник", height=3, width=50, borderwidth=3, background='#edc2d8')  # создаем текстовую метку
-top_text = Label(text="Здесь вы можете узнать сумму полученную при обмене валюты", height=3, width=50, borderwidth=3, background='#d7d8ea')
-bay_btn = ttk.Radiobutton(text='Покупка', value='bay', variable=bay_sell)
-sell_btn = ttk.Radiobutton(text='Продажа', value='sell', variable=bay_sell)
-middle_text = Label(text="Выберете валюту и сумму для обмена", height=3, width=50, borderwidth=3, background='#edd3c2')
+Label(text="Добро пожаловать в обменник", height=3, width=50, borderwidth=3, background='#edc2d8').pack(anchor=NW, fill=X, padx=5, pady=5)  # создаем текстовую метку
+Label(text="Здесь вы можете узнать сумму полученную при обмене валюты", height=3, width=50, borderwidth=3, background='#d7d8ea').pack(anchor=NW, fill=X, padx=5, pady=5)
+ttk.Radiobutton(text='Покупка', value='bay', variable=bay_sell).pack(anchor=NW, padx=5, pady=5)
+ttk.Radiobutton(text='Продажа', value='sell', variable=bay_sell).pack(anchor=NW, padx=5, pady=5)
+middle_text = Label(text="Выберете валюту и сумму для обмена", height=3, width=50, borderwidth=3, background='#edd3c2').pack(anchor=NW, fill=X, padx=5, pady=5)
 
 frame_1 = ttk.Frame(borderwidth=1, relief=SOLID, padding=[5,20])
 for c in range(3): frame_1.columnconfigure(index=c, weight=1)
@@ -55,11 +61,6 @@ bottom_text = Label(frame_2, text="Вы получите", height=3, width=30, b
 result_fild = Label(frame_2, text="", height=3, width=30, background='#c2edce')
 valut_fild = Label(frame_2, text="", height=3, width=30, background='#e4edc2')
 
-label.pack(anchor=NW, fill=X, padx=5, pady=5)
-top_text.pack(anchor=NW, fill=X, padx=5, pady=5)
-bay_btn.pack(anchor=NW, padx=5, pady=5)
-sell_btn.pack(anchor=NW, padx=5, pady=5)
-middle_text.pack(anchor=NW, fill=X, padx=5, pady=5)
 
 frame_1.pack(anchor=NW, fill=X, padx=5, pady=5)
 valut.grid(row=0, column=0, padx=5, pady=5)
@@ -71,21 +72,6 @@ bottom_text.grid(row=0, column=0, padx=5, pady=5)
 result_fild.grid(row=0, column=1, padx=5, pady=5)
 valut_fild.grid(row=0, column=2, padx=5, pady=5)
 
-
-# val_1 = ttk.Entry(background='grey')
-# val_2 = ttk.Entry(background='grey')
-# fill_summ = ttk.Entry(background='grey')
-#
-# btn = ttk.Button(text="Click", command=click)
-# res = Label(text="There will be Result", background='grey')
-#
-#
-# label.pack(anchor="nw", padx=20, pady=30)  # размещаем метку в окне
-# val_1.pack(anchor=NE, padx=8, pady= 8)
-# val_2.pack(anchor=E, padx=8, pady= 8)
-# fill_summ.pack(anchor=SE, padx=8, pady= 8)
-# btn.pack(anchor=S, expand=1)
-# res.pack(anchor=S)
 
 root.mainloop()
 

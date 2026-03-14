@@ -15,7 +15,7 @@ while ex:
     val_1 = Currency(data, v1)
     val_2 = Currency(data, v2)
 
-    val_1.convector(val_2, sum)
+    print(val_1.convector(val_2, sum))
 
     an = input('Хотите еще?(Y/N)').upper()
     if an == 'N':
